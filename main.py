@@ -1,0 +1,94 @@
+import mysql.connector
+import requests
+
+def wybrane(tablica,nazwa):
+    query = "INSERT INTO "+nazwa+" VALUES (NULL,'"+nr_tabeli+"','"+data+"',"+tablica[1]+");"
+    print(query)
+    kursor.execute(query)
+
+
+path = 'http://api.nbp.pl/api/exchangerates/tables/A?format=xml'
+r = requests.get(path)
+# dane
+with open('dane.xml', 'wb') as f:
+    f.write(r.content)
+
+from xml.etree import ElementTree
+
+tree = ElementTree.parse("dane.xml")
+root = tree.getroot()
+
+tabela = []
+for element in root.findall(".//Rate"):
+    waluta = []
+    waluta.append(element.find('Code').text)
+    waluta.append(element.find('Mid').text)
+    tabela.append(waluta)
+# print(tabela)
+
+# nazwa i data
+for element in root.findall('ExchangeRatesTable'):
+    nr_tabeli = element.find('No').text
+    data = element.find('EffectiveDate').text
+# print(nr_tabeli)
+# print(data)
+
+# sprawdzanie danych, zeby sie nie powtarzały
+
+baza = mysql.connector.connect(host='localhost', user='root', password='', database='waluty')
+kursor = baza.cursor()
+query = "SELECT nr_tabeli,id_wiersza FROM kursy GROUP BY id_wiersza DESC LIMIT 1"
+kursor.execute(query)
+nr_tabeli_w_bazie = str(kursor.fetchall()).replace("'", "").replace(")", "").replace("(", "").replace("[", "").replace("]", "").split(",")[0]
+# print(nr_tabeli_w_bazie)
+baza.commit()
+error = 0
+if nr_tabeli_w_bazie == nr_tabeli:
+    error = 1
+    print("Dane w bazie są aktualne!")
+
+# wysyłanie danych do bazy wszystkich walut
+if error == 0:
+    print('Zapytania do tabeli "kursy"')
+    for i in tabela:
+        baza = mysql.connector.connect(host='localhost', user='root', password='', database='waluty')
+        kursor = baza.cursor()
+        query = "INSERT INTO kursy VALUES (NULL,'"+nr_tabeli+"','"+data+"','"+i[0]+"',"+i[1]+");"
+        kursor.execute(query)
+        baza.commit()
+        print(query)
+    print(80*'-')
+
+# wybrane waluty i wysłanie ich do bazy
+if error == 0:
+    GBP = []
+    USD = []
+    EUR = []
+    for i in tabela:
+        if i[0] == 'USD':
+            USD.append(i[0])
+            USD.append(i[1])
+            continue
+        if i[0] == 'GBP':
+            GBP.append(i[0])
+            GBP.append(i[1])
+            continue
+        if i[0] == 'EUR':
+            EUR.append(i[0])
+            EUR.append(i[1])
+            continue
+
+    # print(GBP)
+    # print(USD)
+    # print(EUR)
+    print('Zapytania do tabel z wybranymi walutami')
+    baza = mysql.connector.connect(host='localhost', user='root', password='', database='waluty')
+    kursor = baza.cursor()
+    wybrane(GBP,'gbp')
+    wybrane(USD, 'usd')
+    wybrane(EUR, 'eur')
+    baza.commit()
+    print(80 * '-')
+
+    print("Dane zostały wysłane do bazy danych!")
+

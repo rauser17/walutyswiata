@@ -1,0 +1,223 @@
+*{
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.baner{
+    margin: 0px;
+    height: 70px;
+    width: auto;
+    background-color: white;
+    clear: both;
+}
+#banp{
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    background-color: white;
+}
+
+#banp:hover{
+    color: white;
+    background-color: black;
+}
+.main{
+    margin: 0px;
+    height: 800px;
+    width: auto;
+    background-color: white;
+    clear: both;
+}
+
+select{
+    margin: auto;
+    text-align: center;
+    font-size: 20px;
+}
+
+.stopka{
+    background-color: white;
+    margin: 0px;
+    height: auto;
+    text-align: center;
+    width: auto;
+    padding: 10px;
+    clear: both;}
+
+.baner_pole{
+    background-color: white;
+    float: right;
+    text-align: center;
+    width: auto;
+    padding: 10px;
+    margin: 13px;
+}
+
+.element_obiekt{
+    margin-top: 30px;
+    width: 100%;
+    float: left;
+    text-align: center;
+    background-color: white;
+}
+
+.element_obiekt1{
+    margin-top: 10px;
+    width: 100%;
+    float: left;
+    text-align: center;
+    background-color: white;
+    height: 320px;
+    overflow-y: scroll;
+    margin-bottom: 20px;
+}
+
+.element_obiekt3{
+    margin-top: 10px;
+    width: 100%;
+    float: left;
+    text-align: center;
+    background-color: white;
+    height: 750px;
+    overflow-y: scroll;
+    margin-bottom: 20px;
+}
+
+#bank{
+    height: 300px;
+    width: auto;
+    margin: auto;
+}
+
+#bank1{
+    height: 400px;
+    width: auto;
+    margin: auto;
+}
+#formularz{
+    margin: auto;
+    height: 330px;
+    padding: 10px;
+    background-color: white;
+    width: 60%;
+    text-align: center;
+}
+#tabela_kal{
+    margin: auto;
+    text-align: center;
+    font-size: 20px;
+}
+
+
+input[type="number"]{
+    width: 200px;
+    text-align: right;
+    margin: auto;
+    font-size: 15px;
+}
+input[type="submit"]{
+    border: 1px solid black;
+    padding: 2px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 110px;
+    text-align: center;
+    background-color: white;
+    font-size: 18px;
+}
+
+input[type="submit"]:hover{
+    background-color: black;
+    color: white;
+}
+
+input[type="button"]{
+    border: 1px solid black;
+    padding: 2px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 110px;
+    text-align: center;
+    background-color: white;
+    font-size: 18px;
+}
+
+input[type="button"]:hover{
+    background-color: black;
+    color: white;
+}
+h4{
+    text-align: center;
+}
+.element_obiekt2{
+    margin-top: 10px;
+    width: 100%;
+    float: left;
+    text-align: center;
+    background-color: white;
+    height: 320px;
+    margin-bottom: 20px;
+}
+
+#tabelka_kurs{
+    margin: auto;
+    width: 70%;
+    height: auto;
+    background-color: white;
+    padding: 2px;
+}
+
+td{
+    border-bottom: 1px solid black;
+}
+
+#trs:hover{
+    background-color: black;
+    color: white;
+}
+
+.element_obiekt4{
+    margin-top: 10px;
+    width: 100%;
+    float: left;
+    text-align: center;
+    background-color: white;
+    height: 400px;
+    margin-bottom: 20px;
+}
+
+
+.element{
+    background-color: white;
+    margin: 0;
+    width: 50%;
+    height: auto;
+    float: left;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.element_nazwa{
+    font-size: 25px;
+    float: left;
+    width: 100%;
+}
+
+.element_nazwa1{
+    font-size: 10px;
+    float: left;
+    width: 100%;
+}
+
+
+.nazwa{
+    background-color: white;
+    float: left;
+    text-align: center;
+    width: auto;
+    margin-left: 10px;
+
+}
+
+.kreska{
+    clear: both;
+}

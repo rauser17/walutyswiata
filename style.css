@@ -1,0 +1,51 @@
+*{
+    background-color: white;
+    margin: 10px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.wybory{
+    height: auto;
+    width: auto;
+    margin: 0;
+    text-align: center;
+    margin-top: 11%;
+    
+}
+h1{
+    margin-bottom: 20px;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+.elements{
+    display: flex;
+	justify-content: center;
+	align-items: center;
+    margin: 0;
+}
+.element{
+    float: left;
+    margin: 10px;
+    border: 3px solid black;
+    padding: 5px;
+    text-align: center;
+    height: 250px;
+    width: 250px;
+}
+
+.nazwa{
+    font-size: 18px;
+    height: auto;
+    width: auto;
+    margin: 0;
+}
+
+img{
+    height: 200px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin: 0;
+}
