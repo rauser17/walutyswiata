@@ -1,6 +1,8 @@
 <?php
     session_start();
     $connect = mysqli_connect('localhost','root','','waluty');
+    $command = escapeshellcmd('python main.py');
+    $message = shell_exec($command);
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -28,7 +30,7 @@
                 <tr>
                 <td><select id="zag1">
                     <?php
-                       $date = $connect->query("SELECT data FROM kursy GROUP BY data DESC LIMIT 1");
+                       $date = $connect->query("SELECT data FROM kursy GROUP BY data ORDER By data desc LIMIT 1");
                         foreach($date as $d){
                         $date = $d['data'];
                        }
@@ -54,7 +56,7 @@
                 <tr><td>
                 <select id="zag2">
                     <?php
-                       $date = $connect->query("SELECT data FROM kursy GROUP BY data DESC LIMIT 1");
+                       $date = $connect->query("SELECT data FROM kursy GROUP BY data");
                         foreach($date as $d){
                         $date = $d['data'];
                        }
@@ -72,7 +74,7 @@
             </form>
             </div>
             <div class="element_obiekt4">
-                <img src="money.gif" id="bank1">
+              <img src="swiat_1.png" id="bank1">
             </div>
         </div>
         <div class="element">
@@ -81,7 +83,7 @@
                         if(isset($_SESSION['day'])){
                             echo $_SESSION['day'];
                         }else{
-                            $date = $connect->query("SELECT data FROM kursy GROUP BY data DESC LIMIT 1");
+                            $date = $connect->query("SELECT data FROM kursy GROUP BY data");
                             foreach($date as $d){
                             $date = $d['data'];}
                             echo $date;
@@ -91,7 +93,7 @@
         <div class="element_nazwa1"><form action="archiwum.php" method="GET"><select name="dataop">
         <option disabled selected value> -- wybierz date -- </option>
                     <?php
-                        $wynik = $connect->query("SELECT distinct(data) FROM kursy GROUP BY data DESC");
+                        $wynik = $connect->query("SELECT distinct(data) FROM kursy GROUP BY data");
                         foreach($wynik as $w){
                             echo '<option>'.$w['data'].'</option>';
                         }
@@ -104,7 +106,7 @@
                     if(isset($_SESSION['exits_data'])){
                             echo $_SESSION['exits_data'];
                     }else{
-                        $date = $connect->query("SELECT data FROM kursy GROUP BY data DESC LIMIT 1");
+                        $date = $connect->query("SELECT data FROM kursy GROUP BY data");
                             foreach($date as $d){
                             $date = $d['data'];
                         }

@@ -1,27 +1,9 @@
 import mysql.connector
 import requests
 
-class waluta:
-    nazwa=""
-    kurs=""
-    def __init__(self,nazwa_arg,kurs_arg):
-        self.nazwa=nazwa_arg
-        self.kurs=kurs_arg
-    def dane(self):
-        print(self.nazwa, self.kurs)
-
-class tab_waluty:
-    numer=""
-    data=""
-    def __init__(self,numer_arg,data_arg):
-        self.numer=numer_arg
-        self.data=data_arg
-    def dane(self):
-        print(self.numer, self.data)
 
 def wybrane(tablica,nazwa):
-  #  print(tablica)
-    query = "INSERT INTO "+nazwa+" VALUES (NULL,'"+xml.numer+"','"+xml.data+"',"+tablica[0].kurs+");"
+    query = "INSERT INTO "+nazwa+" VALUES (NULL,'"+nr_tabeli+"','"+data+"',"+tablica[1]+");"
     print(query)
     kursor.execute(query)
 
@@ -39,17 +21,16 @@ root = tree.getroot()
 
 tabela = []
 for element in root.findall(".//Rate"):
-    nazwa = element.find('Code').text
-    kurs = element.find('Mid').text
-    wal = waluta(nazwa,kurs)
-    tabela.append(wal)
+    waluta = []
+    waluta.append(element.find('Code').text)
+    waluta.append(element.find('Mid').text)
+    tabela.append(waluta)
 # print(tabela)
 
 # nazwa i data
 for element in root.findall('ExchangeRatesTable'):
     nr_tabeli = element.find('No').text
     data = element.find('EffectiveDate').text
-    xml = tab_waluty(nr_tabeli,data)
 # print(nr_tabeli)
 # print(data)
 
@@ -63,7 +44,7 @@ nr_tabeli_w_bazie = str(kursor.fetchall()).replace("'", "").replace(")", "").rep
 # print(nr_tabeli_w_bazie)
 baza.commit()
 error = 0
-if nr_tabeli_w_bazie == xml.numer:
+if nr_tabeli_w_bazie == nr_tabeli:
     error = 1
     print("Dane w bazie są aktualne!")
 
@@ -73,7 +54,7 @@ if error == 0:
     for i in tabela:
         baza = mysql.connector.connect(host='localhost', user='root', password='', database='waluty')
         kursor = baza.cursor()
-        query = "INSERT INTO kursy VALUES (NULL,'"+xml.numer+"','"+xml.data+"','"+i.nazwa+"',"+i.kurs+");"
+        query = "INSERT INTO kursy VALUES (NULL,'"+nr_tabeli+"','"+data+"','"+i[0]+"',"+i[1]+");"
         kursor.execute(query)
         baza.commit()
         print(query)
@@ -85,18 +66,21 @@ if error == 0:
     USD = []
     EUR = []
     for i in tabela:
-        if i.nazwa == 'USD':
-            USD.append(i)
+        if i[0] == 'USD':
+            USD.append(i[0])
+            USD.append(i[1])
             continue
-        if i.nazwa == 'GBP':
-            GBP.append(i)
+        if i[0] == 'GBP':
+            GBP.append(i[0])
+            GBP.append(i[1])
             continue
-        if i.nazwa == 'EUR':
-            EUR.append(i)
+        if i[0] == 'EUR':
+            EUR.append(i[0])
+            EUR.append(i[1])
             continue
-   # print(GBP)
-   # print(USD)
-   # print(EUR)
+
+    # print(USD)
+    # print(EUR)
     print('Zapytania do tabel z wybranymi walutami')
     baza = mysql.connector.connect(host='localhost', user='root', password='', database='waluty')
     kursor = baza.cursor()
@@ -107,4 +91,4 @@ if error == 0:
     print(80 * '-')
 
     print("Dane zostały wysłane do bazy danych!")
-#print(tabela)
+print(tabela)

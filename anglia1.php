@@ -1,5 +1,7 @@
 <?php
-    session_start()
+    session_start();
+    $command = escapeshellcmd('python main.py');
+    $message = shell_exec($command);
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -83,7 +85,7 @@
                     <thead><td>Data</td><td>Kurs</td></thead>
                     <?php
                         $connect = mysqli_connect('localhost','root','','waluty');
-                        $wynik = $connect->query("SELECT * FROM GBP");
+                        $wynik = $connect->query("SELECT * FROM GBP ORDER BY data desc");
                         foreach($wynik as $w){
                             echo '<tr id="trs" value='.$w['kurs'].'><td>'.$w['data'].'</td><td>'.$w['kurs'].'</td></tr>';
                         }

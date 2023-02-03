@@ -3,7 +3,7 @@
     $waluta = $_GET['EURO1'];
     if ($waluta>0){
         $connect = mysqli_connect('localhost','root','','waluty');
-        $date = $connect->query("SELECT data FROM kursy GROUP BY data DESC LIMIT 1");
+        $date = $connect->query("SELECT data FROM kursy GROUP BY data ORDER BY data DESC LIMIT 1");
         foreach($date as $d){
         $date = $d['data'];
         }
@@ -21,7 +21,7 @@
     $polska = $_GET['PLN1'];
     if ($polska>0){
         $connect = mysqli_connect('localhost','root','','waluty');
-        $date = $connect->query("SELECT data FROM kursy GROUP BY data DESC LIMIT 1");
+        $date = $connect->query("SELECT data FROM kursy GROUP BY data ORDER BY data DESC LIMIT 1");
         foreach($date as $d){
         $date = $d['data'];
         }
